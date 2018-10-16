@@ -1,10 +1,12 @@
-package com.example.readonlinedb;
+package com.example.readonlinedb.ui;
 
 import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+
+import com.example.readonlinedb.R;
 
 
 public class MainActivity extends AppCompatActivity{
