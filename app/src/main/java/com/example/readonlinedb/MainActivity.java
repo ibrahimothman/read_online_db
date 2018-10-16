@@ -1,10 +1,16 @@
 package com.example.readonlinedb;
 
+import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity{
+
+    public static final String BASE_URL = "http://192.168.1.101/test";
+    public static final String ALL_DATA =BASE_URL+"/all_data.php";
 
     Toolbar mToolbar;
     @Override
@@ -17,5 +23,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Login");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
+
+
+
 }
