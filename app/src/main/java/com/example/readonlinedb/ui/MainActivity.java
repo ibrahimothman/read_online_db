@@ -52,6 +52,47 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setTitle("Login");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-       
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // save user info
+
+                mUserEmail = mEmialEditTxt.getText().toString();
+                mUserPassword = mPasswordEditText.getText().toString();
+                if(!TextUtils.isEmpty(mUserEmail) && !TextUtils.isEmpty(mUserPassword)){
+                    login();
+                }else
+                    Toast.makeText(MainActivity.this, "invalid emial or password", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void login(){
+        Log.d("mainactivity","login");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                LOGIN_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("mainactivity","response is "+response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("mainactivity","error is "+error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("email",mUserEmail);
+                map.put("password",mUserPassword);
+                return map;
+            }
+        };
+
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
