@@ -5,11 +5,20 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.readonlinedb.R;
+import com.example.readonlinedb.retrofit.ApiClinet;
+import com.example.readonlinedb.retrofit.ApiInterface;
+import com.example.readonlinedb.retrofit.Error;
+
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class MainActivity extends AppCompatActivity{
@@ -50,7 +59,7 @@ public class MainActivity extends AppCompatActivity{
                 mUserPassword = mPasswordEditText.getText().toString();
 
                 if(!TextUtils.isEmpty(mUserEmail) && !TextUtils.isEmpty(mUserPassword)){
-
+                    login();
                 }else
                     Toast.makeText(MainActivity.this, "invalid emial or password", Toast.LENGTH_SHORT).show();
             }
@@ -60,5 +69,24 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+    public void login(){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",mUserEmail);
+        map.put("password",mUserPassword);
 
+        Call<Error> call = ApiClinet.getApiClient().create(ApiInterface.class)
+                .login(map);
+        call.enqueue(new Callback<Error>() {
+            @Override
+            public void onResponse(Call<Error> call, retrofit2.Response<Error> response) {
+                Error error = response.body();
+                Log.d("mainActivity","message is "+error.getMessage());
+            }
+
+            @Override
+            public void onFailure(Call<Error> call, Throwable t) {
+                Log.d("mainActivity","onFailure "+t.getMessage());
+            }
+        });
+    }
 }
