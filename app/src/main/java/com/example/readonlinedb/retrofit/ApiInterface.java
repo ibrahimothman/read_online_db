@@ -14,4 +14,8 @@ public interface ApiInterface {
     @POST(Constatns.LOGIN_URL)
     public Call<Error> login(@FieldMap HashMap<String,String> map);
 
+    @FormUrlEncoded
+    @POST(Constatns.SIGNUP_URL)
+    public Call<Error> signup(@FieldMap HashMap<String,String> map);
+
 }

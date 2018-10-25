@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity{
                 mUserPassword = mPasswordEditText.getText().toString();
 
                 if(!TextUtils.isEmpty(mUserEmail) && !TextUtils.isEmpty(mUserPassword)){
-                    login();
+                    signup();
                 }else
                     Toast.makeText(MainActivity.this, "invalid emial or password", Toast.LENGTH_SHORT).show();
             }
@@ -76,6 +76,28 @@ public class MainActivity extends AppCompatActivity{
 
         Call<Error> call = ApiClinet.getApiClient().create(ApiInterface.class)
                 .login(map);
+        call.enqueue(new Callback<Error>() {
+            @Override
+            public void onResponse(Call<Error> call, retrofit2.Response<Error> response) {
+                Error error = response.body();
+                Log.d("mainActivity","message is "+error.getMessage());
+            }
+
+            @Override
+            public void onFailure(Call<Error> call, Throwable t) {
+                Log.d("mainActivity","onFailure "+t.getMessage());
+            }
+        });
+    }
+
+
+    public void signup(){
+        HashMap<String,String> map = new HashMap<>();
+        map.put("email",mUserEmail);
+        map.put("password",mUserPassword);
+
+        Call<Error> call = ApiClinet.getApiClient().create(ApiInterface.class)
+                .signup(map);
         call.enqueue(new Callback<Error>() {
             @Override
             public void onResponse(Call<Error> call, retrofit2.Response<Error> response) {
