@@ -1,11 +1,11 @@
 package com.example.readonlinedb.retrofit;
 
-public class Error {
+public class Response {
 
     private boolean error;
     private String message;
 
-    public Error(boolean error, String message) {
+    public Response(boolean error, String message) {
         this.error = error;
         this.message = message;
     }

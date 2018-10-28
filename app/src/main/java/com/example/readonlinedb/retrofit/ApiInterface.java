@@ -12,10 +12,10 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST(Constatns.LOGIN_URL)
-    public Call<Error> login(@FieldMap HashMap<String,String> map);
+    public Call<Response> login(@FieldMap HashMap<String,String> map);
 
     @FormUrlEncoded
     @POST(Constatns.SIGNUP_URL)
-    public Call<Error> signup(@FieldMap HashMap<String,String> map);
+    public Call<Response> signup(@FieldMap HashMap<String,String> map);
 
 }
